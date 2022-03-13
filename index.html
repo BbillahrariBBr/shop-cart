@@ -25,11 +25,11 @@
 
                             <div class="col-md-5 center-item">
                                 <div class="input-group number-spinner">
-                                    <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                                    <input type="text" class="form-control text-center" value="1">
-                                    <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                                    <button onclick="handleProductChange('phone',false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                                    <input id="phone_input" type="text" class="form-control text-center" value="1">
+                                    <button onclick="handleProductChange('phone',true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
                                 </div>
-                                <h5>$1219</h5>
+                                <h5 id="phoneTotal">$1219</h5>
                                 <img src="images/remove.png" alt="" class="remove-item">
                             </div>
                         </div>
@@ -44,9 +44,9 @@
 
                             <div class="col-md-5 center-item">
                                 <div class="input-group number-spinner">
-                                    <button id="case_minus_btn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                                    <button onclick="handleProductChange('case',false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
                                     <input id="case_input" type="text" class="form-control text-center" value="1">
-                                    <button id="case_plus_btn" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                                    <button onclick="handleProductChange('case',true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
                                 </div>
                                 <h5 id="caseTotal">$59</h5>
                                 <img src="images/remove.png" alt="" class="remove-item">
@@ -79,29 +79,32 @@
     </section>
 
     <script>
-        document.getElementById('case_plus_btn').addEventListener('click',function(){
-            handleProductChange(true);
+    
 
-        })
-
-        document.getElementById('case_minus_btn').addEventListener('click',function(){
-            handleProductChange(false);
-        })
-
-        function handleProductChange(isIncrease){
-            const case_input = document.getElementById('case_input');
-            const case_input_number = parseInt(case_input.value);
-            let caseNewCount = case_input_number
+        function handleProductChange(product,isIncrease){
+            const product_input = document.getElementById(product +'_input');
+            // console.log(product_input.id);
+            const product_input_number = parseInt(product_input.value);
+            let productNewCount = product_input_number
             if (isIncrease == true) {
-                caseNewCount = case_input_number + 1;
+                productNewCount = product_input_number + 1;
             }
-            if (isIncrease == false && case_input_number > 1) {
-                caseNewCount = case_input_number - 1;
+            if (isIncrease == false && product_input_number > 1) {
+                productNewCount = product_input_number - 1;
                 
             }
-            case_input.value = caseNewCount;
-            const caseTotal = caseNewCount * 59;
-            document.getElementById('caseTotal').innerText = '$' + caseTotal;
+            product_input.value = productNewCount;
+            let productTotal = 0;
+            if(product == 'phone'){
+                productTotal = productNewCount *1219;
+            }
+
+            if(product == 'case'){
+                productTotal = productNewCount * 59;
+            }
+
+
+            document.getElementById(product+'Total').innerText = '$' +productTotal;
 
         }
     </script>
